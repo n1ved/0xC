@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oxcompanion/components/homescreen_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -20,18 +21,29 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ListView.builder(
-            itemBuilder: (context, index) => Card(
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(_hiveBox.getAt(index)[1]),
-                    Text(_hiveBox.getAt(index)[2])
-                  ],
+            itemBuilder: (context, index) => GestureDetector(
+              child: Card(
+                color: Theme.of(context).primaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(_hiveBox.getAt(index)[1]),
+                      Text(_hiveBox.getAt(index)[2])
+                    ],
+                  ),
                 ),
               ),
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => HomescreenBottomSheet(
+                          url: _hiveBox.getAt(index)[0],
+                          name: _hiveBox.getAt(index)[1],
+                          expiry: _hiveBox.getAt(index)[2],
+                        ));
+              },
             ),
             itemCount: _hiveBox.length,
           ),
