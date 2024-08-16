@@ -30,7 +30,7 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   void writeDB({url, name, expiry}) {
-    _hiveBox.put(_hiveBox.length + 1, [url, name, expiry]);
+    _hiveBox.put(url, [url, name, expiry]);
   }
 
   void uploadFiles() async {
@@ -50,13 +50,15 @@ class _UploadScreenState extends State<UploadScreen> {
             (int.parse(response.headers['x-expires']!)));
         String formattedDate = DateFormat('yMd').format(expiry);
         writeDB(
-            url: responseData.toString(),
+            url: responseData.toString().substring(0, responseData.length - 1),
             name: file.path.split('/').last,
             expiry: formattedDate);
         showModalBottomSheet(
             context: context,
             builder: (context) => DetailsBottomSheet(
-                  url: responseData,
+                  url: responseData
+                      .toString()
+                      .substring(0, responseData.length - 1),
                   expiry: formattedDate,
                 ));
       } else {

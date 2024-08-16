@@ -16,7 +16,7 @@ class HomescreenBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            url.substring(0, url.length - 1),
+            url,
             style: const TextStyle(
               fontSize: 24.0,
             ),
@@ -53,7 +53,7 @@ class HomescreenBottomSheet extends StatelessWidget {
   }
 
   Future<void> _launchUrl() async {
-    final Uri _uri = Uri.parse(url.substring(0, url.length - 1));
+    final Uri _uri = Uri.parse(url);
     if (!await launchUrl(_uri)) {
       throw Exception('Could not launch $url');
     }

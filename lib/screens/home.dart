@@ -54,7 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             FloatingActionButton.extended(
               heroTag: const Key("FABAddKey"),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/add');
+              },
               label: const Text("Add"),
               icon: const Icon(Icons.add),
             ),
