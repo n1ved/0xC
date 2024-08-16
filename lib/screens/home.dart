@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final _hiveBox = Hive.box('linkBox');
 
   @override
   Widget build(BuildContext context) {
@@ -11,20 +19,21 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                color: Theme.of(context).primaryColor,
-                child: const Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text("Link"), Text("16 Jul 2025")],
-                  ),
+          child: ListView.builder(
+            itemBuilder: (context, index) => Card(
+              color: Theme.of(context).primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(_hiveBox.getAt(index)[1]),
+                    Text(_hiveBox.getAt(index)[2])
+                  ],
                 ),
               ),
-            ],
+            ),
+            itemCount: _hiveBox.length,
           ),
         ),
         floatingActionButton: Wrap(
@@ -32,6 +41,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.end,
           children: [
             FloatingActionButton.extended(
+              heroTag: const Key("FABAddKey"),
               onPressed: () {},
               label: const Text("Add"),
               icon: const Icon(Icons.add),
@@ -40,6 +50,7 @@ class HomeScreen extends StatelessWidget {
               height: 20.0,
             ),
             FloatingActionButton.extended(
+              heroTag: const Key("FABUploadKey"),
               onPressed: () {
                 Navigator.pushNamed(context, '/upload');
               },

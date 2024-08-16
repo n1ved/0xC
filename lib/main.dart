@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:oxcompanion/screens/home.dart';
 import 'package:oxcompanion/screens/upload.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  var box = await Hive.openBox('linkBox');
   runApp(MaterialApp(
     routes: {
-      '/': (context) => const HomeScreen(),
-      '/upload': (context) => UploadScreen(),
+      '/': (context) => HomeScreen(),
+      '/upload': (context) => const UploadScreen(),
     },
   ));
 }

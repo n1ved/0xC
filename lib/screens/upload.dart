@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:oxcompanion/componets/details_bottom_sheet.dart';
+import 'package:oxcompanion/components/details_bottom_sheet.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -17,6 +18,7 @@ class _UploadScreenState extends State<UploadScreen> {
   late File file;
   String fileName = "Pick a File";
   int currentLoadingState = 0;
+  final _hiveBox = Hive.box('linkBox');
   void pickFiles() async {
     FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles();
     if (filePickerResult != null) {
@@ -25,6 +27,10 @@ class _UploadScreenState extends State<UploadScreen> {
         fileName = file.path.split('/').last;
       });
     }
+  }
+
+  void writeDB({url, name, expiry}) {
+    _hiveBox.put(_hiveBox.length + 1, [url, name, expiry]);
   }
 
   void uploadFiles() async {
@@ -37,13 +43,16 @@ class _UploadScreenState extends State<UploadScreen> {
     request.headers['User-Agent'] = 'curl/7.68.0';
     try {
       var response = await request.send();
-      print(request);
       if (response.statusCode == 200) {
         var responseData = await response.stream.bytesToString();
 
         final DateTime expiry = DateTime.fromMillisecondsSinceEpoch(
             (int.parse(response.headers['x-expires']!)));
         String formattedDate = DateFormat('yMd').format(expiry);
+        writeDB(
+            url: responseData.toString(),
+            name: file.path.split('/').last,
+            expiry: formattedDate);
         showModalBottomSheet(
             context: context,
             builder: (context) => DetailsBottomSheet(
@@ -51,7 +60,6 @@ class _UploadScreenState extends State<UploadScreen> {
                   expiry: formattedDate,
                 ));
       } else {
-        print('Failed to upload file. Status code: ${response.statusCode}');
         showModalBottomSheet(
           context: context,
           builder: (context) => DetailsBottomSheet(
@@ -79,6 +87,7 @@ class _UploadScreenState extends State<UploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key("uploadPageScaffoldKey"),
       appBar: AppBar(
         title: const Text("Upload New File"),
       ),
