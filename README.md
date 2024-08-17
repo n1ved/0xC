@@ -4,7 +4,7 @@ A companion app for storing records and sharing files via to http://0x0.st
 
 ## TODO
 
-- [ ] Permissions for android
+- [ ] Refactor and Document Code
 - [ ] Proper Exception Handling
 - [ ] Validation when adding old record
 - [ ] UI Overhaul
