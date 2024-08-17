@@ -1,4 +1,4 @@
-package me.n1ved.oxcompanion
+package dev.n1ved.nullxc
 
 import io.flutter.embedding.android.FlutterActivity
 
