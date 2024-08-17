@@ -11,6 +11,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _hiveBox = Hive.box('linkBox');
+  var itemCountInit = 0;
+
+  @override
+  void initState() {
+    itemCountInit = _hiveBox.length;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(_hiveBox.getAt(index)[1]),
-                      Text(_hiveBox.getAt(index)[2])
+                      Text(
+                        _hiveBox.getAt(index)[1],
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      ),
+                      Text(
+                        _hiveBox.getAt(index)[2],
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary),
+                      )
                     ],
                   ),
                 ),
@@ -56,6 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
               heroTag: const Key("FABAddKey"),
               onPressed: () {
                 Navigator.pushNamed(context, '/add');
+                setState(() {
+                  itemCountInit = _hiveBox.length;
+                });
               },
               label: const Text("Add"),
               icon: const Icon(Icons.add),
@@ -67,6 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
               heroTag: const Key("FABUploadKey"),
               onPressed: () {
                 Navigator.pushNamed(context, '/upload');
+                setState(() {
+                  itemCountInit = _hiveBox.length;
+                });
               },
               label: const Text("Upload"),
               icon: const Icon(Icons.upload),
