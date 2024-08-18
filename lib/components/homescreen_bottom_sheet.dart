@@ -10,44 +10,36 @@ class HomescreenBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 50.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            url,
-            style: const TextStyle(
-              fontSize: 24.0,
+    return Card(
+      color: Color(0xFF1E1E1E),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              url,
+              style: const TextStyle(
+                fontSize: 24.0,
+                color: Colors.white,
+              ),
             ),
-          ),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 16.0,
+            Text(
+              "File Name : $name",
+              style: const TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
             ),
-          ),
-          Text(
-            expiry,
-            style: const TextStyle(
-              fontSize: 16.0,
+            Text(
+              "Expires on $expiry",
+              style: const TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
             ),
-          ),
-          Row(
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: url));
-                  },
-                  child: const Text('Copy')),
-              TextButton(
-                  onPressed: () async {
-                    _launchUrl();
-                  },
-                  child: const Text('Open')),
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

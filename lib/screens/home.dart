@@ -49,20 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-          itemBuilder: (context, index) => GestureDetector(
-            child: HomeScreenCard(
-              hiveBox: _hiveBox,
-              index: index,
-            ),
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) => HomescreenBottomSheet(
-                        url: _hiveBox.getAt(index)[0],
-                        name: _hiveBox.getAt(index)[1],
-                        expiry: _hiveBox.getAt(index)[2],
-                      ));
-            },
+          itemBuilder: (context, index) => HomeScreenCard(
+            hiveBox: _hiveBox,
+            index: index,
           ),
           itemCount: _hiveBox.length,
         ),

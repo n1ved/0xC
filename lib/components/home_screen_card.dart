@@ -90,6 +90,7 @@ class HomeScreenCard extends StatelessWidget {
                           name: _hiveBox.getAt(index)[1],
                           expiry: _hiveBox.getAt(index)[2],
                         ),
+                        backgroundColor: const Color(0xFF1E1E1E),
                       );
                     },
                     style: TextButton.styleFrom(
