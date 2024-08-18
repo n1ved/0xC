@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             label: const Text("Add"),
             icon: const Icon(Icons.add),
+            backgroundColor: Colors.white,
           ),
           Container(
             height: 20.0,
@@ -95,6 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             label: const Text("Upload"),
             icon: const Icon(Icons.upload),
+            backgroundColor: const Color(0xFFd8315e),
+            foregroundColor: Colors.white,
           ),
         ],
       ),
