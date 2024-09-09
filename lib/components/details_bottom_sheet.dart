@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants.dart';
+
 class DetailsBottomSheet extends StatelessWidget {
   const DetailsBottomSheet(
       {super.key, required this.url, required this.expiry});
@@ -36,7 +38,7 @@ class DetailsBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFFce2754),
+                  backgroundColor: kPrimaryColor,
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:oxcompanion/components/details_bottom_sheet.dart';
 
+import '../constants.dart';
+
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
 
@@ -131,7 +133,7 @@ class _UploadScreenState extends State<UploadScreen> {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFFce2754),
+                backgroundColor: kPrimaryColor,
                 foregroundColor: Colors.white,
               ),
               onPressed: () {

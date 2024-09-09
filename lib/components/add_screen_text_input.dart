@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants.dart';
+
 class AddScreenTextInput extends StatelessWidget {
   const AddScreenTextInput({
     super.key,
@@ -19,7 +21,7 @@ class AddScreenTextInput extends StatelessWidget {
         labelStyle: const TextStyle(
           color: Colors.white,
         ),
-        focusColor: const Color(0xFFce2754),
+        focusColor: kPrimaryColor,
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(

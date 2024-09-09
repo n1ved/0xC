@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:oxcompanion/components/add_screen_text_input.dart';
 
+import '../constants.dart';
+
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
 
@@ -74,7 +76,7 @@ class _AddScreenState extends State<AddScreen> {
                 Navigator.pop(context);
               },
               style: TextButton.styleFrom(
-                backgroundColor: const Color(0xFFce2754),
+                backgroundColor: kPrimaryColor,
                 foregroundColor: Colors.white,
               ),
               child: Text(
