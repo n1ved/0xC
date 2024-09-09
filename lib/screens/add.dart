@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:oxcompanion/components/add_screen_text_input.dart';
+
+import '../constants.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -29,36 +34,33 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("Add Existing Link"),
+        title: Text(
+          "Add Existing Link",
+          style: GoogleFonts.jetBrainsMono(),
+        ),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter 0x0 URL Here",
-              ),
+            AddScreenTextInput(
               controller: urlEditingController,
+              label: "URL",
             ),
             Container(height: 20.0),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Name of the file",
-              ),
+            AddScreenTextInput(
               controller: nameEditingController,
+              label: "File Name",
             ),
             Container(height: 20.0),
-            TextField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter Expiry of the file",
-              ),
+            AddScreenTextInput(
               controller: expiryEditingController,
+              label: "Expiry",
             ),
             Container(height: 20.0),
             TextButton(
@@ -73,9 +75,10 @@ class _AddScreenState extends State<AddScreen> {
                 expiryEditingController.clear();
                 Navigator.pop(context);
               },
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.primary)),
+              style: TextButton.styleFrom(
+                backgroundColor: kPrimaryColor,
+                foregroundColor: Colors.white,
+              ),
               child: Text(
                 "Save",
                 style:

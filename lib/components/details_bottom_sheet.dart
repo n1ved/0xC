@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../constants.dart';
 
 class DetailsBottomSheet extends StatelessWidget {
   const DetailsBottomSheet(
@@ -20,25 +23,28 @@ class DetailsBottomSheet extends StatelessWidget {
           children: [
             Text(
               url,
-              style: const TextStyle(
+              style: GoogleFonts.jetBrainsMono(
                 fontSize: 20.0,
+                color: Colors.white,
               ),
             ),
-            Text("Expires on $expiry"),
+            Text(
+              "Expires on $expiry",
+              style: GoogleFonts.jetBrainsMono(
+                color: Colors.white,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary)),
+                style: TextButton.styleFrom(
+                  backgroundColor: kPrimaryColor,
+                  foregroundColor: Colors.white,
+                ),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: url));
                 },
-                child: Text(
-                  "Copy Link",
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                ),
+                child: Text("Copy Link", style: GoogleFonts.jetBrainsMono()),
               ),
             )
           ],

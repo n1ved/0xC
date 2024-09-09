@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:oxcompanion/components/details_bottom_sheet.dart';
+
+import '../constants.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -34,6 +37,7 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   void uploadFiles() async {
+    ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar);
     setState(() {
       currentLoadingState = 1;
     });
@@ -49,18 +53,21 @@ class _UploadScreenState extends State<UploadScreen> {
         final DateTime expiry = DateTime.fromMillisecondsSinceEpoch(
             (int.parse(response.headers['x-expires']!)));
         String formattedDate = DateFormat('yMd').format(expiry);
-        writeDB(
+        setState(() {
+          writeDB(
             url: responseData.toString().substring(0, responseData.length - 1),
             name: file.path.split('/').last,
-            expiry: formattedDate);
+            expiry: formattedDate,
+          );
+        });
         showModalBottomSheet(
-            context: context,
-            builder: (context) => DetailsBottomSheet(
-                  url: responseData
-                      .toString()
-                      .substring(0, responseData.length - 1),
-                  expiry: formattedDate,
-                ));
+          context: context,
+          builder: (context) => DetailsBottomSheet(
+            url: responseData.toString().substring(0, responseData.length - 1),
+            expiry: formattedDate,
+          ),
+          backgroundColor: Color(0xFF1e1e1e),
+        );
       } else {
         showModalBottomSheet(
           context: context,
@@ -71,27 +78,38 @@ class _UploadScreenState extends State<UploadScreen> {
     } catch (e) {
       print('Error occurred: $e');
     }
-
-    setState(() {
-      currentLoadingState = 0;
-    });
   }
 
-  final loadingSnackbar = const SnackBar(
-    content: Row(
+  final loadingSnackbar = SnackBar(
+    content: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Uploading File",
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: 20.0,
+            ),
+          ),
+        ),
+        const CircularProgressIndicator(
+          color: Color(0xFFce2754),
+        ),
       ],
     ),
+    backgroundColor: Colors.transparent,
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       key: const Key("uploadPageScaffoldKey"),
       appBar: AppBar(
-        title: const Text("Upload New File"),
+        title: Text("Upload New File", style: GoogleFonts.jetBrainsMono()),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,28 +117,31 @@ class _UploadScreenState extends State<UploadScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.secondaryContainer)),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
               onPressed: () {
                 setState(() {
                   pickFiles();
                 });
               },
-              child: Text(fileName),
+              child: Text(
+                fileName,
+                style: GoogleFonts.jetBrainsMono(),
+              ),
             ),
             TextButton(
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.primary)),
+              style: TextButton.styleFrom(
+                backgroundColor: kPrimaryColor,
+                foregroundColor: Colors.white,
+              ),
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(loadingSnackbar);
                 uploadFiles();
               },
               child: Text(
                 "Upload",
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+                style: GoogleFonts.jetBrainsMono(),
               ),
             ),
             Container(
