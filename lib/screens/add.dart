@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:oxcompanion/components/add_screen_text_input.dart';
+
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
 
@@ -44,39 +46,19 @@ class _AddScreenState extends State<AddScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: "URL",
-                border: OutlineInputBorder(),
-              ),
+            AddScreenTextInput(
               controller: urlEditingController,
-              cursorColor: Colors.white,
-              style: GoogleFonts.jetBrainsMono(
-                color: Colors.white,
-              ),
+              label: "URL",
             ),
             Container(height: 20.0),
-            TextField(
-                decoration: const InputDecoration(
-                  labelText: "File Name",
-                  border: OutlineInputBorder(),
-                ),
-                controller: nameEditingController,
-                cursorColor: Colors.white,
-                style: GoogleFonts.jetBrainsMono(
-                  color: Colors.white,
-                )),
+            AddScreenTextInput(
+              controller: nameEditingController,
+              label: "File Name",
+            ),
             Container(height: 20.0),
-            TextField(
-              decoration: const InputDecoration(
-                labelText: "Expiry",
-                border: OutlineInputBorder(),
-              ),
+            AddScreenTextInput(
               controller: expiryEditingController,
-              cursorColor: Colors.white,
-              style: GoogleFonts.jetBrainsMono(
-                color: Colors.white,
-              ),
+              label: "Expiry",
             ),
             Container(height: 20.0),
             TextButton(
