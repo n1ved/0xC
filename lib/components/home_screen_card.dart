@@ -82,6 +82,17 @@ class HomeScreenCard extends StatelessWidget {
                     color: Colors.black,
                     style: IconButton.styleFrom(backgroundColor: Colors.white),
                   ),
+                  IconButton.filledTonal(
+                    onPressed: () {
+                      _hiveBox.deleteAt(index);
+                    },
+                    icon: const Icon(
+                      Icons.delete_forever,
+                      size: 20.0,
+                    ),
+                    color: Colors.black,
+                    style: IconButton.styleFrom(backgroundColor: Colors.white),
+                  ),
                   TextButton(
                     onPressed: () {
                       showModalBottomSheet(
