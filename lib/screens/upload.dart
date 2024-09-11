@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:oxcompanion/components/details_bottom_sheet.dart';
+import 'package:oxcompanion/components/upload_sheet.dart';
 
 import '../constants.dart';
 

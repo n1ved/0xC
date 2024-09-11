@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:oxcompanion/components/add_screen_text_input.dart';
+import 'package:oxcompanion/components/text_input.dart';
 
 import '../constants.dart';
 

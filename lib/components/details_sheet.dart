@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomescreenBottomSheet extends StatelessWidget {
@@ -11,7 +10,7 @@ class HomescreenBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xFF1E1E1E),
+      color: const Color(0xFF1E1E1E),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
         child: Column(

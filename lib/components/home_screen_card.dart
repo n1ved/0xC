@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
-import 'homescreen_bottom_sheet.dart';
+import 'details_sheet.dart';
 
 class HomeScreenCard extends StatelessWidget {
   HomeScreenCard({
