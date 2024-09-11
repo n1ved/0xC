@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oxcompanion/models/file_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
@@ -10,19 +13,10 @@ import 'details_sheet.dart';
 class HomeScreenCard extends StatelessWidget {
   HomeScreenCard({
     super.key,
-    required Box hiveBox,
-    required this.index,
-  }) : _hiveBox = hiveBox;
+    required this.details,
+  });
 
-  final Box _hiveBox;
-  late int index;
-
-  Future<void> _launchUrl(url) async {
-    final Uri _uri = Uri.parse(url);
-    if (!await launchUrl(_uri)) {
-      throw Exception('Could not launch $url');
-    }
-  }
+  final FileModel details;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +28,7 @@ class HomeScreenCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(_hiveBox.getAt(index)[0].split('//').last,
+            Text(details.url.split('//').last,
                 style: GoogleFonts.jetBrainsMono(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -42,7 +36,7 @@ class HomeScreenCard extends StatelessWidget {
                   letterSpacing: 1.2,
                 )),
             Text(
-              _hiveBox.getAt(index)[1],
+              details.name,
               style: GoogleFonts.jetBrainsMono(
                 color: Colors.white,
                 fontSize: 14.0,
@@ -60,7 +54,7 @@ class HomeScreenCard extends StatelessWidget {
                     onPressed: () {
                       Clipboard.setData(
                         ClipboardData(
-                          text: _hiveBox.getAt(index)[0],
+                          text: details.url,
                         ),
                       );
                     },
@@ -73,7 +67,7 @@ class HomeScreenCard extends StatelessWidget {
                   ),
                   IconButton.filledTonal(
                     onPressed: () {
-                      _launchUrl(_hiveBox.getAt(index)[0]);
+                      details.launch();
                     },
                     icon: const Icon(
                       Icons.open_in_new,
@@ -84,7 +78,7 @@ class HomeScreenCard extends StatelessWidget {
                   ),
                   IconButton.filledTonal(
                     onPressed: () {
-                      _hiveBox.deleteAt(index);
+                      details.deleteUrl();
                     },
                     icon: const Icon(
                       Icons.delete_forever,
@@ -97,10 +91,8 @@ class HomeScreenCard extends StatelessWidget {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
-                        builder: (context) => HomescreenBottomSheet(
-                          url: _hiveBox.getAt(index)[0],
-                          name: _hiveBox.getAt(index)[1],
-                          expiry: _hiveBox.getAt(index)[2],
+                        builder: (context) => DetailsSheet(
+                          details: details,
                         ),
                         backgroundColor: const Color(0xFF1E1E1E),
                       );

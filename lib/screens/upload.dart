@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:oxcompanion/components/upload_sheet.dart';
+import 'package:oxcompanion/models/file_model.dart';
 
 import '../constants.dart';
 
@@ -53,17 +54,16 @@ class _UploadScreenState extends State<UploadScreen> {
         final DateTime expiry = DateTime.fromMillisecondsSinceEpoch(
             (int.parse(response.headers['x-expires']!)));
         String formattedDate = DateFormat('yMd').format(expiry);
-        setState(() {
-          writeDB(
-            url: responseData.toString().substring(0, responseData.length - 1),
-            name: file.path.split('/').last,
-            expiry: formattedDate,
-          );
-        });
+        FileModel fileModel = FileModel(
+          name: file.path.split('/').last,
+          url: responseData.toString().substring(0, responseData.length - 1),
+          expiry: expiry,
+        );
+        fileModel.writeDB();
         showModalBottomSheet(
           context: context,
           builder: (context) => DetailsBottomSheet(
-            url: responseData.toString().substring(0, responseData.length - 1),
+            url: fileModel.url,
             expiry: formattedDate,
           ),
           backgroundColor: Color(0xFF1e1e1e),

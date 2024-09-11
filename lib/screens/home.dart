@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:oxcompanion/models/file_model.dart';
 
 import '../components/home_screen_card.dart';
 
@@ -48,10 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-          itemBuilder: (context, index) => HomeScreenCard(
-            hiveBox: _hiveBox,
-            index: index,
-          ),
+          itemBuilder: (context, index) {
+            dynamic details = _hiveBox.getAt(index);
+            FileModel fileModel = FileModel(
+              name: details[1],
+              url: details[0],
+              expiry: details[2],
+            );
+            return HomeScreenCard(
+              details: fileModel,
+            );
+          },
           itemCount: _hiveBox.length,
         ),
       ),

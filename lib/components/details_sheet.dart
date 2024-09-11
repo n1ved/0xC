@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:oxcompanion/models/file_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomescreenBottomSheet extends StatelessWidget {
-  const HomescreenBottomSheet(
-      {super.key, required this.url, required this.name, required this.expiry});
+class DetailsSheet extends StatelessWidget {
+  const DetailsSheet({
+    super.key,
+    required this.details,
+  });
 
-  final String url, name, expiry;
+  final FileModel details;
+
+  String formatDate() => DateFormat('yMd').format(details.expiry);
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +23,21 @@ class HomescreenBottomSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              url,
+              details.url,
               style: const TextStyle(
                 fontSize: 24.0,
                 color: Colors.white,
               ),
             ),
             Text(
-              "File Name : $name",
+              "File Name : ${details.name}",
               style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.white,
               ),
             ),
             Text(
-              "Expires on $expiry",
+              "Expires on ${formatDate()}",
               style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.white,
@@ -41,12 +47,5 @@ class HomescreenBottomSheet extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _launchUrl() async {
-    final Uri _uri = Uri.parse(url);
-    if (!await launchUrl(_uri)) {
-      throw Exception('Could not launch $url');
-    }
   }
 }
