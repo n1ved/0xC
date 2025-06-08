@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:nullcompanion/data/models/data_model.dart';
 import '../components/bottom_navigation.dart';
 import '../components/file_card.dart';
 import '../constants/const.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
+    final savedURLs = Hive.box<SavedURL>(savedURLBox).values;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -28,10 +27,13 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: primaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: ListView.builder(
-          itemBuilder: (context, index) => FileCard(),
-          itemCount: 5,
-        ),
+        child:
+            savedURLs.isEmpty
+                ? Center(child: Text("No files to display"))
+                : ListView.builder(
+                  itemBuilder: (context, index) => FileCard(),
+                  itemCount: savedURLs.length,
+                ),
       ),
       bottomNavigationBar: BottomNavigation(),
     );
