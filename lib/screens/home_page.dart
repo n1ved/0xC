@@ -31,7 +31,9 @@ class HomePage extends StatelessWidget {
             savedURLs.isEmpty
                 ? Center(child: Text("No files to display"))
                 : ListView.builder(
-                  itemBuilder: (context, index) => FileCard(),
+                  itemBuilder:
+                      (context, index) =>
+                          FileCard(url: savedURLs.toList()[index]),
                   itemCount: savedURLs.length,
                 ),
       ),
