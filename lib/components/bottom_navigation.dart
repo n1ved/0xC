@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nullcompanion/components/upload_sheet.dart';
 import 'package:nullcompanion/constants/const.dart';
 
 class BottomNavigation extends StatelessWidget {
@@ -13,7 +14,14 @@ class BottomNavigation extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return UploadSheet();
+                },
+              );
+            },
             style: TextButton.styleFrom(
               backgroundColor: primaryColor,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

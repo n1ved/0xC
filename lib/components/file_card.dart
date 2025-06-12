@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nullcompanion/constants/const.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nullcompanion/data/models/data_model.dart';
 
 class FileCard extends StatelessWidget {
-  const FileCard({super.key});
-
+  const FileCard({super.key, required this.url});
+  final SavedURL url;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,21 +32,21 @@ class FileCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Example.pdf",
+                url.name,
                 style: GoogleFonts.robotoMono(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
-                "https://0x0.st/example.pdf",
+                url.url,
                 style: GoogleFonts.robotoMono(
                   fontSize: 12.0,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
-                "PDF • 64KB • 13 days ago • 350 days left",
+                "${url.format} • ${url.sizeString} • 13 days ago • 350 days left",
                 style: GoogleFonts.robotoMono(
                   fontSize: 10.0,
                   fontWeight: FontWeight.w500,
