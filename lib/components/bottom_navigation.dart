@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nullcompanion/components/upload_sheet.dart';
 import 'package:nullcompanion/constants/const.dart';
+import 'package:nullcompanion/main.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});
@@ -18,7 +19,7 @@ class BottomNavigation extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return UploadSheet();
+                  return UploadSheet(uploadType: UploadType.upload);
                 },
               );
             },
@@ -38,7 +39,14 @@ class BottomNavigation extends StatelessWidget {
             ),
           ),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return UploadSheet(uploadType: UploadType.copy);
+                },
+              );
+            },
             style: TextButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               iconColor: Colors.black,
@@ -48,7 +56,7 @@ class BottomNavigation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               spacing: 5.0,
               children: [
-                Icon(Icons.add),
+                Icon(Icons.copy),
                 Text("Copy URL", style: TextStyle(color: Colors.black)),
               ],
             ),

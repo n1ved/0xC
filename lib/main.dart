@@ -4,6 +4,8 @@ import 'package:nullcompanion/data/models/data_model.dart';
 import 'package:nullcompanion/screens/home_page.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
+enum UploadType { upload, copy }
+
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox<SavedURL>(savedURLBox);
